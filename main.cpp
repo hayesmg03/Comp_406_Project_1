@@ -58,57 +58,57 @@ string doInstruction(unsigned char instruction)
     {
         if(rs == 0) {
             A += A;
-        } else if(rs == 0){
+        } else if(rs == 1){
             A += B;
-        } else if(rs == 0){
+        } else if(rs == 2){
             A += C;
-        } else if(rs == 0){
+        } else if(rs == 3){
             A += D;
         }
         cout << "ADD ";
 
     }   else if(opcode == 7 && rd == 1)
     {
-        if(rs == 1) {
+        if(rs == 0) {
             B += A;
-        } else if(rs == 0){
+        } else if(rs == 1){
             B += B;
-        } else if(rs == 0){
+        } else if(rs == 2){
             B += C;
-        } else if(rs == 0){
+        } else if(rs == 3){
             B += D;
         }
         cout << "ADD ";
 
     }   else if(opcode == 7 && rd == 2)
     {
-        if(rs == 2) {
+        if(rs == 0) {
             C += A;
-        } else if(rs == 0){
+        } else if(rs == 1){
             C += B;
-        } else if(rs == 0){
+        } else if(rs == 2){
             C += C;
-        } else if(rs == 0){
+        } else if(rs == 3){
             C += D;
         }
         cout << "ADD ";
 
     }   else if(opcode == 7 && rd == 3)
     {
-        if(rs == 3) {
+        if(rs == 0) {
             D += A;
-        } else if(rs == 0){
+        } else if(rs == 1){
             D += B;
-        } else if(rs == 0){
+        } else if(rs == 2){
             D += C;
-        } else if(rs == 0){
+        } else if(rs == 3){
             D += D;
         }
         cout << "ADD ";
 
     }
 //  LOAD
-    if(opcode == 2 && rd == 0)
+    else if(opcode == 2 && rd == 0)
     {
         cout << "LOAD ";
         if(rs == 0)
@@ -166,6 +166,27 @@ string doInstruction(unsigned char instruction)
             D += memory[D];
         }
     }
+//  SKIPNZ
+//    else if(opcode == 4 && rd == 0 && A != 0 && rs == 1)
+//    {
+//        PC += 1;
+//        cout << "SKIPNZ ";
+//    }   else if(opcode == 4 && rd == 1 && B != 0 && rs == 1)
+//    {
+//        PC += 1;
+//        cout << "SKIPNZ ";
+//
+//    }   else if(opcode == 4 && rd == 2 && C != 0 && rs == 1)
+//    {
+//        PC += 1;
+//        cout << "SKIPNZ ";
+//
+//    }   else if(opcode == 4 && rd == 3 && D != 0 && rs == 1)
+//    {
+//        PC += 1;
+//        cout << "SKIPNZ ";
+//
+//    }
 
     return "no instruction";
 }
@@ -178,10 +199,6 @@ int main()
 
 //  set each register to 0
     A = 0, B = 0, C = 0, D = 0;
-
-   unsigned char f = 0x66;
-
-    cout << f << "\n";
 
     memory[0xfe] = 2;
 
