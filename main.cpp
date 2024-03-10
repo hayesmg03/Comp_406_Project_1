@@ -6,6 +6,7 @@ using namespace std;
 unsigned char PC = 0;
 unsigned char memory[256];
 unsigned char registers[4];
+//  references to corresponding registers arr
 unsigned char &A=registers[0], &B=registers[1], &C=registers[2], &D=registers[3];
 unsigned char testProgram[21] = {0xff,0xfe,0x23,0x15,0xc8,0xcb,0xcd,0xcd,0x49,0x5f,0x74,0xcc,0xcd,0x1b,0xcc,0xde,0x5f,0xff,0xff,0x37,0x01};
 
@@ -167,26 +168,26 @@ string doInstruction(unsigned char instruction)
         }
     }
 //  SKIPNZ
-//    else if(opcode == 4 && rd == 0 && A != 0 && rs == 1)
-//    {
-//        PC += 1;
-//        cout << "SKIPNZ ";
-//    }   else if(opcode == 4 && rd == 1 && B != 0 && rs == 1)
-//    {
-//        PC += 1;
-//        cout << "SKIPNZ ";
-//
-//    }   else if(opcode == 4 && rd == 2 && C != 0 && rs == 1)
-//    {
-//        PC += 1;
-//        cout << "SKIPNZ ";
-//
-//    }   else if(opcode == 4 && rd == 3 && D != 0 && rs == 1)
-//    {
-//        PC += 1;
-//        cout << "SKIPNZ ";
-//
-//    }
+    else if(opcode == 4 && rd == 0 && A != 0 && rs == 1)
+    {
+        PC += 1;
+        cout << "SKIPNZ ";
+    }   else if(opcode == 4 && rd == 1 && B != 0 && rs == 1)
+    {
+        PC += 1;
+        cout << "SKIPNZ ";
+
+    }   else if(opcode == 4 && rd == 2 && C != 0 && rs == 1)
+    {
+        PC += 1;
+        cout << "SKIPNZ ";
+
+    }   else if(opcode == 4 && rd == 3 && D != 0 && rs == 1)
+    {
+        PC += 1;
+        cout << "SKIPNZ ";
+
+    }
 
     return "no instruction";
 }
@@ -194,18 +195,26 @@ string doInstruction(unsigned char instruction)
 int main()
 {
 
-//  references to corresponding registers arr
+
 
 
 //  set each register to 0
     A = 0, B = 0, C = 0, D = 0;
 
+//  set the item in index 0xfe of memory to 2
     memory[0xfe] = 2;
 
+//  copies the program into the memory array
     int i = 0;
     for(unsigned char & step : testProgram)
     {
         memory[i] = step;
+        i++;
+    }
+
+//  main loop that iterates through the program and executes each instruction
+    for(unsigned char & step : testProgram)
+    {
 
         unsigned char instruction = memory[PC];
 
@@ -214,7 +223,6 @@ int main()
         printf("PC=%x, inst=%x, A=%x, B=%x, C=%x, D=%x\n", PC, instruction, A, B, C, D);
 
         PC++;
-        i++;
     }
 
 
