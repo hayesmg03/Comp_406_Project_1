@@ -378,7 +378,27 @@ string doInstruction(unsigned char instruction)
             memory[D] = D;
         }
     }
+//  SKIPZ
+    else if(opcode == 4 && rd == 0 && A == 0 && rs == 0)
+    {
+        PC += 1;
+        cout << "SKIPZ ";
+    }   else if(opcode == 4 && rd == 1 && B == 0 && rs == 0)
+    {
+        PC += 1;
+        cout << "SKIPZ ";
 
+    }   else if(opcode == 4 && rd == 2 && C == 0 && rs == 0)
+    {
+        PC += 1;
+        cout << "SKIPZ ";
+
+    }   else if(opcode == 4 && rd == 3 && D == 0 && rs == 0)
+    {
+        PC += 1;
+        cout << "SKIPZ ";
+
+    }
     return "no instruction";
 }
 
@@ -392,11 +412,11 @@ int main()
     A = 0, B = 0, C = 0, D = 0;
 
 //  set the item in index 0xfe of memory to 2
-    memory[0xfe] = 6;
+    memory[0xfe] = 2;
 
 //  copies the program into the memory array
     int i = 0;
-    for(unsigned char & step : fibProgram)
+    for(unsigned char & step : testProgram)
     {
         memory[i] = step;
         i++;
