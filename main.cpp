@@ -9,6 +9,7 @@ unsigned char registers[4];
 //  references to corresponding registers arr
 unsigned char &A=registers[0], &B=registers[1], &C=registers[2], &D=registers[3];
 unsigned char testProgram[21] = {0xff,0xfe,0x23,0x15,0xc8,0xcb,0xcd,0xcd,0x49,0x5f,0x74,0xcc,0xcd,0x1b,0xcc,0xde,0x5f,0xff,0xff,0x37,0x01};
+unsigned char fibProgram[] ={0xc4, 0xc4, 0xc8, 0xc9, 0xde, 0xdd, 0x23, 0x15, 0x76, 0x1a, 0x7b, 0xcc, 0xcd, 0x13, 0xcc, 0xdc, 0x40, 0x5f, 0xde, 0xde, 0x3b, 0x01};
 bool halted = false;
 
 
@@ -31,6 +32,7 @@ string doInstruction(unsigned char instruction)
     if(opcode == 0 && rs == 1)
     {
         halted = true;
+        cout << "HALT";
     }
 //  SLI
     if(opcode >> 2 == 3)
@@ -390,11 +392,11 @@ int main()
     A = 0, B = 0, C = 0, D = 0;
 
 //  set the item in index 0xfe of memory to 2
-    memory[0xfe] = 2;
+    memory[0xfe] = 6;
 
 //  copies the program into the memory array
     int i = 0;
-    for(unsigned char & step : testProgram)
+    for(unsigned char & step : fibProgram)
     {
         memory[i] = step;
         i++;
@@ -416,8 +418,7 @@ int main()
     }
 
 
-
-    cout << memory[0xff];
+    printf("%i", memory[0xff]);
 
 
 
